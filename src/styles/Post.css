@@ -1,0 +1,37 @@
+.post {
+    border: 1px solid #ccc;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 7fr 2fr;
+}
+
+.post__id {
+    display: block;
+}
+
+.post__title {
+    display: block;
+    font-size: 24px;
+}
+
+.post__body {
+    display: block;
+    font-style: italic;
+    grid-column-start: 2;
+    grid-column-end: 8;
+}
+
+.post__btns {
+    grid-column-start: 8;
+    grid-column-end: 10;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    display:  flex;
+    justify-content: space-around;
+    flex-direction: column;
+    border: 1px solid red;
+}
+
+.post__btn {
+    cursor: pointer;
+}
