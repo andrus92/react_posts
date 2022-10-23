@@ -16,7 +16,7 @@
 
 .modal__block {
     position: relative;
-    max-width: 640px;
+    min-width: 640px;
     padding: 20px;
     background-color: #fff;
     box-shadow: 0 2px 6px 1px rgba(0, 0, 0, 0.1);
@@ -43,4 +43,10 @@
     cursor: pointer;
 }
 
+.modal__input_title {
+    
+}
 
+.modal__input_text {
+    height: 100px;
+}

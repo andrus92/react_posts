@@ -7,13 +7,14 @@ class Post extends React.Component {
       super();
     }
 
-    handleEditPost = () => {
-        console.log('editPos')
+    handleEditPost = (event) => {
+      const id = event.target.closest('li').id;
+      this.props.setModalWindowActiveFnc.call(this, id);
     }
     
     handleRemovePost = (event) => {
-        const id = event.target.closest('li').id;
-        this.props.removePostFnc.call(this, id);
+      const id = event.target.closest('li').id;
+      this.props.removePostFnc.call(this, id);
     }
   
     render() {

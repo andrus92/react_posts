@@ -8,6 +8,7 @@ class App extends React.Component {
     super();
 
     this.state = {
+      editingPostId: undefined,
       data : [
         {
           "userId": 1,
@@ -31,21 +32,32 @@ class App extends React.Component {
     }
   }
 
-  getPosts = () => {
+  renderPosts = () => {
 
     return (
       <ul>
-        {this.state.data.map((post) =>
-          <Post 
-            key={post.id} 
-            id={post.id} 
-            title={post.title}
-            body={post.body}
-            removePostFnc={this.removePost}
-          />
-        )}
+        {
+          this.state.data.map((post) =>
+            <Post 
+              key={post.id} 
+              id={post.id} 
+              title={post.title}
+              body={post.body}
+              removePostFnc={this.removePost}
+              setModalWindowActiveFnc={this.setModalWindowActive}
+            />
+          )
+        }
       </ul>
     );
+  }
+
+  setModalWindowActive = (id) => {
+    this.setState({editingPostId: id});
+  }
+
+  setModalWindowInactive = () => {
+    this.setState({editingPostId: undefined});
   }
 
   removePost = (id) => {
@@ -54,13 +66,40 @@ class App extends React.Component {
     this.setState({data: newData});
   }
 
+  editPost = (id, newTitle, newText) => {
+    const intId = parseInt(id);
+    const elemIdx = this.state.data.findIndex(post => post.id === intId);
+    if (elemIdx !== -1) {
+      const newData = [...this.state.data];
+      newData[elemIdx].title = newTitle;
+      newData[elemIdx].body = newText;
+      this.setState({data: newData});
+    }
+
+  }
+
+  renderModalWindow = () => {
+    if (this.state.editingPostId !== undefined) {
+      const intId = parseInt(this.state.editingPostId);
+      const post = this.state.data.filter(post => post.id === intId);
+      return (
+        <Modal 
+          setModalWindowInactiveFnc={this.setModalWindowInactive}
+          editPostFnc={this.editPost}
+          post={post[0]}
+        />
+      );
+    }
+    return null;
+  }
+
   render() {
 
     return (
       <React.Fragment>
             <h2 >Posts</h2>
-            {this.getPosts()}
-            <Modal />
+            {this.renderPosts()}
+            {this.renderModalWindow()}
       </React.Fragment>
     );
   }
