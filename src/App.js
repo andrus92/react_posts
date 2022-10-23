@@ -1,6 +1,7 @@
 import './App.css';
 import React from 'react';
 import Post from './components/Post';
+import Modal from './components/Modal';
 
 class App extends React.Component {
   constructor() {
@@ -59,6 +60,7 @@ class App extends React.Component {
       <React.Fragment>
             <h2 >Posts</h2>
             {this.getPosts()}
+            <Modal />
       </React.Fragment>
     );
   }
