@@ -24,7 +24,7 @@ class App extends React.Component {
   renderPosts = () => {
 
     return (
-      <ul>
+      <ul className='posts'>
         {
           this.state.data.map((post) =>
             <Post 
@@ -107,7 +107,6 @@ class App extends React.Component {
 
     return (
       <React.Fragment>
-            <h2 >Posts</h2>
             {this.renderPosts()}
             {this.renderModalWindow()}
       </React.Fragment>

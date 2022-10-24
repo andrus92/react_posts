@@ -24,8 +24,8 @@ class Post extends React.Component {
                  <span className='post__title'>{this.props.title}</span>
                  <span className='post__body'>{this.props.body}</span>
                  <div className='post__btns'>
-                    <button onClick={this.handleEditPost} className='post__btn'>Edit</button>
-                    <button onClick={this.handleRemovePost} className='post__btn'>Remove</button>
+                    <button onClick={this.handleEditPost} className='post__btn post__btn_edit'></button>
+                    <button onClick={this.handleRemovePost} className='post__btn post__btn_delete'></button>
                  </div>
             </li>
       );

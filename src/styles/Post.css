@@ -29,9 +29,21 @@
     display:  flex;
     justify-content: space-around;
     flex-direction: column;
-    border: 1px solid red;
 }
 
 .post__btn {
     cursor: pointer;
+    border: none;
+    width: 24px;
+    height: 24px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+}
+
+.post__btn_edit {
+    background-image: url('../img/edit-btn.png');
+}
+
+.post__btn_delete {
+    background-image: url('../img/delete-btn.png');
 }
