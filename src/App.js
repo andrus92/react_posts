@@ -2,6 +2,7 @@ import './App.css';
 import React from 'react';
 import Post from './components/Post';
 import Modal from './components/Modal';
+import Notification from './components/Notification';
 
 class App extends React.Component {
   constructor() {
@@ -9,6 +10,7 @@ class App extends React.Component {
 
     this.state = {
       editingPostId: undefined,
+      notificationStatus: undefined,
       data : []
     }
   }
@@ -21,32 +23,16 @@ class App extends React.Component {
       .catch(err => console.error(err));
   }
 
-  renderPosts = () => {
-
-    return (
-      <ul className='posts'>
-        {
-          this.state.data.map((post) =>
-            <Post 
-              key={post.id} 
-              id={post.id} 
-              title={post.title}
-              body={post.body}
-              removePostFnc={this.removePost}
-              setModalWindowActiveFnc={this.setModalWindowActive}
-            />
-          )
-        }
-      </ul>
-    );
-  }
-
   setModalWindowActive = (id) => {
     this.setState({editingPostId: id});
   }
 
   setModalWindowInactive = () => {
     this.setState({editingPostId: undefined});
+  }
+
+  setNotificationStatus = (status) => {
+    this.setState({notificationStatus: status});
   }
 
   removePost = (id) => {
@@ -58,8 +44,12 @@ class App extends React.Component {
       .then((json) => {
         const newData = this.state.data.filter(post => post.id !== intId);
         this.setState({data: newData});
+        this.setNotificationStatus(true);
       })
-      .catch(err => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        this.setNotificationStatus(false);
+      });
   }
 
   editPost = (id, newTitle, newText) => {
@@ -83,9 +73,33 @@ class App extends React.Component {
         newData[elemIdx].title = newTitle;
         newData[elemIdx].body = newText;
         this.setState({data: newData});
+        this.setNotificationStatus(true);
       })
-      .catch(err => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        this.setNotificationStatus(false);
+      });
     }
+  }
+
+  renderPosts = () => {
+
+    return (
+      <ul className='posts'>
+        {
+          this.state.data.map((post) =>
+            <Post 
+              key={post.id} 
+              id={post.id} 
+              title={post.title}
+              body={post.body}
+              removePostFnc={this.removePost}
+              setModalWindowActiveFnc={this.setModalWindowActive}
+            />
+          )
+        }
+      </ul>
+    );
   }
 
   renderModalWindow = () => {
@@ -103,12 +117,27 @@ class App extends React.Component {
     return null;
   }
 
+  renderNotification = () => {
+
+    if (this.state.notificationStatus !== undefined) {
+        return (
+          <Notification 
+            notificationStatus={this.state.notificationStatus}
+            setNotificationStatusFnc={this.setNotificationStatus}
+          />
+        );
+    }
+
+    return null;
+  }
+
   render() {
 
     return (
       <React.Fragment>
             {this.renderPosts()}
             {this.renderModalWindow()}
+            {this.renderNotification()}
       </React.Fragment>
     );
   }

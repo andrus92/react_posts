@@ -1,0 +1,35 @@
+.notification {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,0,0,0.4);
+}   
+
+.notification__block {
+    position: relative;
+    min-width: 320px;
+    padding: 20px;
+    box-shadow: 0 2px 6px 1px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.notification__block_success {
+    background-color: rgb(100, 199, 100);
+}
+
+.notification__block_failure {
+    background-color: rgb(226, 97, 97);
+}
+
+.notification__img {
+    
+}
+
+.notification__btn {
+    cursor: pointer;
+}
