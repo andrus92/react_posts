@@ -51,8 +51,7 @@ class App extends React.Component {
 
   removePost = (id) => {
     const intId = parseInt(id);
-    console.log('removePost')
-      fetch(`https://jsonplaceholder.typicode.com/posts/${intId}`, {
+    fetch(`https://jsonplaceholder.typicode.com/posts/${intId}`, {
         method: 'DELETE',
       })
       .then((response) => response.json())
@@ -67,12 +66,26 @@ class App extends React.Component {
     const intId = parseInt(id);
     const elemIdx = this.state.data.findIndex(post => post.id === intId);
     if (elemIdx !== -1) {
-      const newData = [...this.state.data];
-      newData[elemIdx].title = newTitle;
-      newData[elemIdx].body = newText;
-      this.setState({data: newData});
+      fetch(`https://jsonplaceholder.typicode.com/posts/${intId}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          id: intId,
+          title: newTitle,
+          body: newText,
+        }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      })
+      .then((response) => response.json())
+      .then((json) => {
+        const newData = [...this.state.data];
+        newData[elemIdx].title = newTitle;
+        newData[elemIdx].body = newText;
+        this.setState({data: newData});
+      })
+      .catch(err => console.error(err));
     }
-
   }
 
   renderModalWindow = () => {
