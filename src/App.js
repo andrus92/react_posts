@@ -51,8 +51,16 @@ class App extends React.Component {
 
   removePost = (id) => {
     const intId = parseInt(id);
-    const newData = this.state.data.filter(post => post.id !== intId);
-    this.setState({data: newData});
+    console.log('removePost')
+      fetch(`https://jsonplaceholder.typicode.com/posts/${intId}`, {
+        method: 'DELETE',
+      })
+      .then((response) => response.json())
+      .then((json) => {
+        const newData = this.state.data.filter(post => post.id !== intId);
+        this.setState({data: newData});
+      })
+      .catch(err => console.error(err));
   }
 
   editPost = (id, newTitle, newText) => {
